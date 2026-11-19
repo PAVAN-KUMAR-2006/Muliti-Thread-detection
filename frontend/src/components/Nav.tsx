@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ShieldCheck } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import NotificationBell from "./NotificationBell";
 
@@ -24,20 +24,20 @@ export default function Nav({ landing = false }: { landing?: boolean }) {
   return (
     <header>
       <nav aria-label="Primary">
-        <Link className="logo" to="/"><i />Sentinel</Link>
+        <Link className="logo" to="/"><span className="logo-mark"><ShieldCheck size={23} /></span><span className="logo-name">Multi-Thread<br /><em>Detection</em></span></Link>
         {landing && !user && (
-          <div className="links"><a href="#channels">Website</a><a href="#channels">Email</a><a href="#channels">Messages</a><a href="#channels">QR</a><a href="#channels">Files</a></div>
+          <div className="links"><a href="#top">Home</a><a href="#scan">Scan</a><a href="#channels">Features</a><a href="#channels">About</a></div>
         )}
         {user && <div className="links">{items}</div>}
         {user && <NotificationBell />}
-        <button className="btn" onClick={toggle} aria-label="Toggle light and dark theme">◐ Theme</button>
+        <button className="btn theme-btn" onClick={toggle} aria-label="Toggle light and dark theme">◐ Theme</button>
         {user ? (
           <>
             <button className="btn primary" onClick={logout}>Sign out</button>
             <button className="btn menu-btn" aria-label="Menu" aria-expanded={open} onClick={() => setOpen(!open)}>{open ? <X size={18} /> : <Menu size={18} />}</button>
           </>
         ) : (
-          <><Link className="btn" to="/login">Sign in</Link><Link className="btn primary" to="/register">Get started</Link></>
+          <><Link className="btn signin-btn" to="/login">Sign in</Link><Link className="btn primary" to="/register">Get started</Link></>
         )}
       </nav>
       {user && open && <div className="mobile-menu">{items}</div>}

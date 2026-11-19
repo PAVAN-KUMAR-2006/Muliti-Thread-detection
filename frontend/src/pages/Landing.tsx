@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Activity, ArrowUpRight, LockKeyhole, ShieldCheck, ScanLine, ChartNoAxesCombined } from "lucide-react";
+import { Activity, ArrowUpRight, LockKeyhole, ShieldCheck, ScanLine, BarChart3 } from "lucide-react";
 import NetworkBackground from "../components/NetworkBackground";
 import Nav from "../components/Nav";
 import { useAuth } from "../context/AuthContext";

@@ -1,0 +1,14 @@
+.badge.neutral{color:var(--muted)}
+.phrow{display:grid;grid-template-columns:minmax(150px,230px) 1fr;gap:10px}
+@media(max-width:600px){.phrow{grid-template-columns:1fr}}
+.phtabs{margin:20px 0 4px}
+.notscored{width:150px;height:150px;border-radius:50%;border:2px dashed var(--line);display:grid;place-items:center;text-align:center;color:var(--muted);font-size:13px;padding:14px;flex:none}
+.evchips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:8px 0 0}
+.evchips li{border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:13px}
+.note9e{border:1px solid var(--line);background:var(--glass);border-radius:var(--r-md);padding:10px 14px;font-size:13px;color:var(--muted);margin-top:14px}
+.charcount{font-size:12px;color:var(--muted);text-align:right;margin-top:-6px}
+.myrep{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.myrep li{border:1px solid var(--line);border-radius:var(--r-md);padding:12px 14px}
+.myrep small{color:var(--muted);display:block;margin-top:4px}
+.myrep p{margin:6px 0 0;font-size:14px;overflow-wrap:anywhere}
+table.bd{width:100%;border-collapse:collapse;font-size:13px}.bd td{padding:6px 4px;border-bottom:1px solid var(--line)}.bd td:last-child{text-align:right;white-space:nowrap}

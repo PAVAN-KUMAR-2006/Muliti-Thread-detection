@@ -1,0 +1,2 @@
+.camera{display:grid;gap:10px;justify-items:start}
+.camvideo{width:100%;max-width:440px;aspect-ratio:4/3;object-fit:cover;background:#000}

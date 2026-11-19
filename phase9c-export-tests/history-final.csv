@@ -1,0 +1,7 @@
+﻿Date (UTC),Scanner,Input / file,Result,Risk score,Risk level,Confidence,Status,Scan ID
+2026-10-16 15:51,email,Routine scanner test,Spam,53.9,MEDIUM,0.539,completed,a5f70738-c05f-4c66-8cdb-54e13e303a16
+2026-10-16 15:48,file,sample.txt,Safe,24.1,LOW,0.759,completed,522710e2-2ba8-433c-bacf-fe3ad1025d61
+2026-10-16 15:46,qr,https://example.com,Safe,0.2,LOW,0.998,completed,a42f4135-ba42-4e2e-a935-34a3e9198feb
+2026-10-16 15:46,message,"Hello, this is a test message.",Suspicious,36.5,MEDIUM,0.635,completed,3cfac722-e3c4-4d71-8e59-d8a4b155de89
+2026-10-16 15:46,email,Routine test email,Spam,54.9,MEDIUM,0.549,completed,dff90e8f-f845-4196-bfba-f8af5a18c2c6
+2026-10-16 15:34,website,https://example.com,Safe,0.2,LOW,0.998,completed,6e8e6acb-b973-4166-bfef-d0952759a46a

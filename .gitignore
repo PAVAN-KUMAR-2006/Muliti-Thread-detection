@@ -1,0 +1,10 @@
+.env
+node_modules
+__pycache__
+*.pyc
+dist
+uploads/*
+!uploads/.gitkeep
+ml/datasets/*
+ml/models/*
+!ml/models/.gitkeep

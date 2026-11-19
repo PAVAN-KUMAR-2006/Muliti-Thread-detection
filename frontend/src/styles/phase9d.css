@@ -1,0 +1,28 @@
+/* Phase 9D: dashboard command-center sections. Uses the existing theme variables, so dark and light both work. */
+.sech{font:600 15px var(--display);margin:22px 0 12px}
+.sech3{font:600 13px var(--display);margin:16px 0 8px;color:var(--muted)}
+.qagrid{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.qa{display:flex;gap:12px;align-items:center;min-height:64px;border:1px solid var(--line);background:var(--glass);backdrop-filter:blur(14px);border-radius:var(--r-md);padding:14px 16px;transition:transform .2s,border-color .2s}
+.qa:hover{transform:translateY(-3px);border-color:var(--cyan)}
+.qa small{display:block;color:var(--muted);font-size:12px;font-weight:400;margin-top:2px}
+.qaicon{font-size:24px}
+.d9grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.d9grid .panel2{margin-top:0}
+@media(max-width:900px){.d9grid{grid-template-columns:1fr}}
+.alerts9{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.al{display:block;border:1px solid var(--line);border-left-width:4px;border-radius:var(--r-md);padding:12px 14px;transition:transform .2s,border-color .2s}
+.al.high{border-left-color:var(--warn)}.al.critical{border-left-color:var(--risk)}
+.al:hover{transform:translateX(2px)}
+.alrow{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;font-size:14px}
+.alrow b{margin-left:auto}
+.lvl{font-size:11px;font-weight:700;letter-spacing:.05em;padding:2px 8px;border-radius:6px}
+.lvl.high{color:var(--warn);background:color-mix(in srgb,var(--warn) 14%,transparent)}
+.lvl.critical{color:var(--risk);background:color-mix(in srgb,var(--risk) 16%,transparent)}
+.almeta{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;color:var(--muted);font-size:12px;margin-top:6px}
+.al p{color:var(--muted);font-size:13px;margin:6px 0 0}
+.chips9{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:0}
+.chips9 li{border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:13px}
+.chips9 b{margin-left:8px}
+.big9{font:700 30px var(--display);margin:6px 0 0}.big9 span{font:400 13px var(--body);color:var(--muted)}
+.range9{font-size:12px;margin:2px 0 4px}
+@media(prefers-reduced-motion:reduce){.qa,.al{transition:none}}

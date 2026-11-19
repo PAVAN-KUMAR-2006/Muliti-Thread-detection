@@ -1,0 +1,3 @@
+﻿Temporary file scanner test.
+This is harmless sample text created for testing Phase 9C.
+It contains no executable commands or sensitive information.

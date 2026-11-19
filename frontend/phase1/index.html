@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sentinel — One Platform. Every Digital Threat.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ===== DESIGN TOKENS ===== */
+:root{
+  --bg:#070b14; --bg2:#0d1424; --glass:rgba(18,28,50,.55); --line:rgba(140,170,230,.16);
+  --text:#e8eefc; --muted:#8c9bbd; --cyan:#4cc9f0; --violet:#8b7cff;
+  --safe:#34d399; --warn:#fbbf24; --risk:#f87171;
+  --r-sm:10px; --r-md:16px; --r-lg:24px; --shadow:0 20px 60px -20px rgba(0,0,0,.6);
+  --display:'Sora',system-ui,sans-serif; --body:'Inter',system-ui,sans-serif;
+}
+:root[data-theme="light"]{
+  --bg:#f4f7fd; --bg2:#e9eef9; --glass:rgba(255,255,255,.7); --line:rgba(40,60,110,.14);
+  --text:#0f1a33; --muted:#52607f; --cyan:#0a84c6; --violet:#5b4bdb;
+  --safe:#059669; --warn:#b7791f; --risk:#dc2626; --shadow:0 20px 50px -25px rgba(30,50,100,.35);
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--body);line-height:1.6;overflow-x:hidden;transition:background .3s,color .3s}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:6px}
+canvas#net{position:fixed;inset:0;width:100%;height:100%;z-index:0}
+.glow{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(60% 50% at 20% 10%,color-mix(in srgb,var(--violet) 22%,transparent),transparent),
+             radial-gradient(50% 40% at 85% 25%,color-mix(in srgb,var(--cyan) 18%,transparent),transparent)}
+main,header,footer{position:relative;z-index:1}
+
+/* ===== NAV ===== */
+header{position:sticky;top:0;backdrop-filter:blur(16px);background:color-mix(in srgb,var(--bg) 60%,transparent);border-bottom:1px solid var(--line);z-index:10}
+nav{max-width:1240px;margin:auto;display:flex;align-items:center;gap:6px;padding:12px 24px}
+.logo{font-family:var(--display);font-weight:700;display:flex;align-items:center;gap:10px;margin-right:auto}
+.logo i{width:28px;height:28px;border-radius:9px;background:conic-gradient(from 200deg,var(--cyan),var(--violet),var(--cyan));display:block;box-shadow:0 0 24px color-mix(in srgb,var(--cyan) 50%,transparent)}
+.links{display:flex;gap:2px}
+.links a{padding:8px 12px;border-radius:999px;font-size:14px;color:var(--muted);transition:.2s}
+.links a:hover{color:var(--text);background:var(--glass)}
+.btn{font:500 14px var(--body);border:1px solid var(--line);background:var(--glass);color:var(--text);padding:10px 18px;border-radius:999px;cursor:pointer;transition:.2s}
+.btn:hover{transform:translateY(-1px);border-color:var(--cyan)}
+.btn.primary{background:linear-gradient(135deg,var(--cyan),var(--violet));border:0;color:#04101f;font-weight:600;box-shadow:0 8px 30px -8px var(--cyan)}
+.btn.primary:hover{box-shadow:0 12px 36px -6px var(--violet)}
+@media(max-width:860px){.links{display:none}}
+
+/* ===== HERO ===== */
+.hero{max-width:1240px;margin:auto;padding:90px 24px 60px;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+@media(max-width:980px){.hero{grid-template-columns:1fr;padding-top:56px}}
+.pill{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--line);background:var(--glass);padding:6px 14px;border-radius:999px;font-size:13px;color:var(--muted)}
+.pill b{width:8px;height:8px;border-radius:50%;background:var(--safe);box-shadow:0 0 10px var(--safe);animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.35}}
+h1{font-family:var(--display);font-size:clamp(40px,6vw,76px);line-height:1.04;letter-spacing:-.03em;margin:22px 0}
+h1 span{background:linear-gradient(100deg,var(--cyan),var(--violet) 60%,var(--cyan));background-size:200%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shift 8s linear infinite}
+@keyframes shift{to{background-position:200%}}
+.sub{color:var(--muted);font-size:18px;max-width:560px}
+
+/* ===== SCANNER ===== */
+.scanner{margin-top:32px;border:1px solid var(--line);background:var(--glass);backdrop-filter:blur(18px);border-radius:var(--r-lg);padding:18px;box-shadow:var(--shadow);max-width:640px;position:relative}
+.scanner::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:linear-gradient(120deg,var(--cyan),transparent 40%,var(--violet));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.6;pointer-events:none}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.tab{border:1px solid transparent;background:transparent;color:var(--muted);font:500 13px var(--body);padding:8px 13px;border-radius:999px;cursor:pointer;transition:.2s}
+.tab:hover{color:var(--text)}
+.tab[aria-selected="true"]{color:var(--text);background:color-mix(in srgb,var(--cyan) 14%,transparent);border-color:color-mix(in srgb,var(--cyan) 45%,transparent)}
+.field{display:flex;gap:10px;flex-wrap:wrap}
+.field input,.field textarea{flex:1;min-width:200px;background:color-mix(in srgb,var(--bg) 70%,transparent);border:1px solid var(--line);color:var(--text);font:15px var(--body);padding:14px 16px;border-radius:var(--r-md);resize:none}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 4px color-mix(in srgb,var(--cyan) 18%,transparent)}
+.drop{flex:1;border:1.5px dashed var(--line);border-radius:var(--r-md);padding:22px;text-align:center;color:var(--muted);font-size:14px;transition:.2s;cursor:pointer}
+.drop:hover,.drop.over{border-color:var(--cyan);color:var(--text);background:color-mix(in srgb,var(--cyan) 8%,transparent)}
+.cta-row{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap}
+
+/* ===== LIVE THREAT PANEL (right) ===== */
+.panel{border:1px solid var(--line);background:var(--glass);backdrop-filter:blur(18px);border-radius:var(--r-lg);padding:26px;box-shadow:var(--shadow);animation:float 7s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-10px)}}
+.gauge{width:190px;height:190px;margin:6px auto 14px;position:relative}
+.gauge svg{transform:rotate(-90deg)}
+.gauge circle{fill:none;stroke-width:12;stroke-linecap:round}
+.gauge .trk{stroke:var(--line)}
+.gauge .val{stroke:var(--risk);stroke-dasharray:502;stroke-dashoffset:502;transition:stroke-dashoffset 1.6s cubic-bezier(.2,.8,.2,1),stroke .5s;filter:drop-shadow(0 0 8px var(--risk))}
+.gauge div{position:absolute;inset:0;display:grid;place-content:center;text-align:center;font-family:var(--display)}
+.gauge strong{font-size:44px;line-height:1}
+.gauge small{color:var(--muted);font:12px var(--body)}
+.verdict{text-align:center;font-family:var(--display);font-weight:600;color:var(--risk);margin-bottom:18px}
+.why{display:grid;gap:12px}
+.why div{font-size:13px}
+.why .row{display:flex;justify-content:space-between;color:var(--muted)}
+.bar{height:6px;border-radius:9px;background:var(--line);margin-top:5px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;border-radius:9px;background:linear-gradient(90deg,var(--warn),var(--risk));transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
+.note{margin-top:16px;font-size:12px;color:var(--muted);text-align:center}
+
+/* ===== CHANNELS ===== */
+section.ch{max-width:1240px;margin:auto;padding:70px 24px}
+h2{font-family:var(--display);font-size:clamp(28px,4vw,44px);letter-spacing:-.02em;max-width:640px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:36px}
+.card{border:1px solid var(--line);background:var(--glass);backdrop-filter:blur(12px);border-radius:var(--r-lg);padding:24px;transition:.25s}
+.card:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--cyan) 50%,transparent)}
+.card:nth-child(3n+2){border-radius:var(--r-sm) var(--r-lg)}
+.card h3{font-family:var(--display);font-size:18px;margin:12px 0 6px}
+.card p{color:var(--muted);font-size:14px}
+.ico{font-size:26px}
+footer{padding:40px 24px;text-align:center;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<canvas id="net" aria-hidden="true"></canvas><div class="glow"></div>
+
+<header>
+  <nav aria-label="Primary">
+    <a class="logo" href="#"><i></i>Sentinel</a>
+    <div class="links">
+      <a href="#channels">Website</a><a href="#channels">Email</a><a href="#channels">Messages</a>
+      <a href="#channels">QR</a><a href="#channels">Files</a><a href="#">Analytics</a>
+    </div>
+    <button class="btn" id="theme" aria-label="Toggle light and dark theme">◐ Theme</button>
+    <a class="btn primary" href="#scan">Sign in</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero">
+  <div>
+    <span class="pill"><b></b> ML engine online · explainable results</span>
+    <h1>One platform. <span>Every digital threat.</span></h1>
+    <p class="sub">Detect phishing, spam, scams and malicious content across websites, emails and messaging platforms using intelligent machine learning.</p>
+
+    <div class="scanner" id="scan">
+      <div class="tabs" role="tablist" aria-label="What would you like to analyze?">
+        <button class="tab" role="tab" aria-selected="true" data-k="url">🌐 Website</button>
+        <button class="tab" role="tab" aria-selected="false" data-k="email">📧 Email</button>
+        <button class="tab" role="tab" aria-selected="false" data-k="msg">📱 Message</button>
+        <button class="tab" role="tab" aria-selected="false" data-k="qr">📷 QR code</button>
+        <button class="tab" role="tab" aria-selected="false" data-k="phone">📞 Phone</button>
+        <button class="tab" role="tab" aria-selected="false" data-k="file">📁 File</button>
+      </div>
+      <div class="field" id="input"></div>
+    </div>
+    <div class="cta-row">
+      <button class="btn primary" id="analyze">Analyze threat</button>
+      <a class="btn" href="#channels">Explore platform</a>
+    </div>
+  </div>
+
+  <aside class="panel" aria-label="Sample analysis preview">
+    <div class="gauge">
+      <svg viewBox="0 0 180 180" width="190" height="190"><circle class="trk" cx="90" cy="90" r="80"/><circle class="val" id="arc" cx="90" cy="90" r="80"/></svg>
+      <div><strong id="num">0</strong><small>risk score</small></div>
+    </div>
+    <p class="verdict" id="verdict">Waiting for input</p>
+    <div class="why" id="why"></div>
+    <p class="note" id="note">Preview runs in your browser. Real scoring arrives with the backend in Phase 2.</p>
+  </aside>
+</section>
+
+<section class="ch" id="channels">
+  <h2>Seven ways to check what lands in front of you.</h2>
+  <div class="grid">
+    <div class="card"><div class="ico">🌐</div><h3>Websites</h3><p>URL structure, domain traits and redirects scored by a trained model.</p></div>
+    <div class="card"><div class="ico">📧</div><h3>Email</h3><p>Sender, subject, body and links checked for urgency and impersonation.</p></div>
+    <div class="card"><div class="ico">💬</div><h3>Messages</h3><p>Paste SMS, WhatsApp or Telegram text to spot scam language.</p></div>
+    <div class="card"><div class="ico">📷</div><h3>QR codes</h3><p>Decode the link inside a code before you open it.</p></div>
+    <div class="card"><div class="ico">📞</div><h3>Phone numbers</h3><p>Community reports and past scans, not guesses from digits alone.</p></div>
+    <div class="card"><div class="ico">📁</div><h3>Files</h3><p>PDF, DOCX, TXT, CSV and EML read as text. Never executed.</p></div>
+  </div>
+</section>
+</main>
+<footer>Sentinel · Phishing and spam detection across web, email and messaging</footer>
+
+<script>
+/* Theme (persisted) */
+const root=document.documentElement;
+try{const t=localStorage.getItem('theme');if(t)root.dataset.theme=t}catch(e){}
+document.getElementById('theme').onclick=()=>{
+  root.dataset.theme=root.dataset.theme==='dark'?'light':'dark';
+  try{localStorage.setItem('theme',root.dataset.theme)}catch(e){}
+};
+
+/* Animated threat network */
+const cv=document.getElementById('net'),cx=cv.getContext('2d');let W,H,P=[];
+function size(){W=cv.width=innerWidth*devicePixelRatio;H=cv.height=innerHeight*devicePixelRatio;
+  P=Array.from({length:Math.min(70,Math.floor(innerWidth/18))},()=>({x:Math.random()*W,y:Math.random()*H,
+  vx:(Math.random()-.5)*.35*devicePixelRatio,vy:(Math.random()-.5)*.35*devicePixelRatio,t:Math.random()<.08}))}
+addEventListener('resize',size);size();
+function frame(){
+  cx.clearRect(0,0,W,H);const dark=root.dataset.theme==='dark';
+  const base=dark?'76,201,240':'10,132,198',bad='248,113,113';
+  for(const p of P){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;
+    cx.beginPath();cx.arc(p.x,p.y,(p.t?3.2:1.8)*devicePixelRatio,0,7);cx.fillStyle=`rgba(${p.t?bad:base},${p.t?.9:.6})`;cx.fill();}
+  const D=150*devicePixelRatio;
+  for(let i=0;i<P.length;i++)for(let j=i+1;j<P.length;j++){
+    const a=P[i],b=P[j],d=Math.hypot(a.x-b.x,a.y-b.y);
+    if(d<D){cx.strokeStyle=`rgba(${a.t||b.t?bad:base},${(1-d/D)*.28})`;cx.lineWidth=devicePixelRatio;cx.beginPath();cx.moveTo(a.x,a.y);cx.lineTo(b.x,b.y);cx.stroke();}}
+  if(!matchMedia('(prefers-reduced-motion:reduce)').matches)requestAnimationFrame(frame);
+}
+frame();
+
+/* Scanner input switching (no page reload) */
+const forms={
+  url:'<input id="v" type="url" placeholder="https://example.com" aria-label="Website URL">',
+  email:'<textarea id="v" rows="3" placeholder="Paste the email, including subject and sender…" aria-label="Email content"></textarea>',
+  msg:'<textarea id="v" rows="3" placeholder="Paste an SMS, WhatsApp or Telegram message…" aria-label="Message text"></textarea>',
+  qr:'<label class="drop" for="v">Drop a QR image or choose a file<input id="v" type="file" accept="image/*" hidden></label>',
+  phone:'<input id="v" type="tel" placeholder="+91 98765 43210" aria-label="Phone number">',
+  file:'<label class="drop" for="v">PDF · DOCX · TXT · EML · CSV — drop or choose<input id="v" type="file" hidden></label>'
+};
+let kind='url';const box=document.getElementById('input');
+function show(k){kind=k;box.innerHTML=forms[k];
+  document.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected',t.dataset.k===k));
+  const d=box.querySelector('.drop');
+  if(d){['dragover','dragleave','drop'].forEach(e=>d.addEventListener(e,ev=>{ev.preventDefault();d.classList.toggle('over',ev.type==='dragover')}));
+    d.querySelector('input').onchange=e=>{d.firstChild.textContent=(e.target.files[0]||{}).name||d.firstChild.textContent}}}
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>show(t.dataset.k));show('url');
+
+/* Preview analysis: transparent heuristic weights, displayed for UI only.
+   Phase 2 replaces this with POST /api/scan/* returning real ML output. */
+const rules=[
+  ['Suspicious keywords',/login|verify|secure|account|update|bank|kyc|claim|prize|won|free/gi,22],
+  ['Urgent language',/urgent|immediately|now|expire|suspend|24 hours|last chance/gi,18],
+  ['Unusual URL structure',/https?:\/\/[^\s]*(@|\d{1,3}(\.\d{1,3}){3}|-.*-.*-)/gi,26],
+  ['Excessive length',/\S{60,}/g,14],
+  ['Financial language',/₹|\$|rs\.?\s?\d|lottery|refund|reward/gi,16]
+];
+document.getElementById('analyze').onclick=()=>{
+  const el=document.getElementById('v');const txt=el&&el.value?el.value:(el&&el.files&&el.files[0]?el.files[0].name:'');
+  const v=document.getElementById('verdict'),why=document.getElementById('why');
+  if(!txt){v.textContent='Add something to analyze first';v.style.color='var(--warn)';return}
+  v.style.color='var(--muted)';v.textContent='Analyzing…';why.innerHTML='';
+  setTimeout(()=>{
+    let score=4,hits=[];
+    for(const [n,re,w] of rules){const m=txt.match(re);if(m){const s=Math.min(w*Math.min(m.length,2),w*1.6);score+=s;hits.push([n,Math.min(100,Math.round(s/w*60))])}}
+    if(kind==='url'&&!/^https:/i.test(txt)){score+=10;hits.push(['No HTTPS',60])}
+    score=Math.min(99,Math.round(score));
+    const lvl=score>80?['CRITICAL','var(--risk)']:score>60?['HIGH','var(--risk)']:score>30?['MEDIUM','var(--warn)']:['LOW','var(--safe)'];
+    const arc=document.getElementById('arc');arc.style.stroke=lvl[1];arc.style.strokeDashoffset=502*(1-score/100);
+    let n=0;const num=document.getElementById('num'),t=setInterval(()=>{n+=2;if(n>=score){n=score;clearInterval(t)}num.textContent=n},18);
+    v.textContent=lvl[0]+' RISK';v.style.color=lvl[1];
+    why.innerHTML=(hits.length?hits:[['No risk indicators found',8]]).map(h=>`<div><div class="row"><span>${h[0]}</span><span>${h[1]>=60?'High':'Medium'}</span></div><div class="bar"><i data-w="${h[1]}"></i></div></div>`).join('');
+    requestAnimationFrame(()=>why.querySelectorAll('i').forEach(i=>i.style.width=i.dataset.w+'%'));
+  },700);
+};
+</script>
+</body>
+</html>

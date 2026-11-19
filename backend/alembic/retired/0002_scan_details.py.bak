@@ -1,0 +1,21 @@
+"""add status, explanation and recommendation to scans (keeps all existing data)"""
+import sqlalchemy as sa
+from alembic import op
+
+revision = "0002"
+down_revision = "0001"
+
+
+def upgrade():
+    existing = {c["name"] for c in sa.inspect(op.get_bind()).get_columns("scans")}
+    if "status" not in existing:
+        op.add_column("scans", sa.Column("status", sa.String(16), nullable=False, server_default="completed"))
+    if "explanation" not in existing:
+        op.add_column("scans", sa.Column("explanation", sa.Text(), nullable=True))
+    if "recommendation" not in existing:
+        op.add_column("scans", sa.Column("recommendation", sa.Text(), nullable=True))
+
+
+def downgrade():
+    for c in ("recommendation", "explanation", "status"):
+        op.drop_column("scans", c)
